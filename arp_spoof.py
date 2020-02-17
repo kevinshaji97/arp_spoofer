@@ -1,5 +1,6 @@
 import scapy.all as scapy
 import time
+import sys
 
 
 # pdst is the ip of destination
@@ -39,7 +40,8 @@ try:
 
         spoof(target_ip, gateway_ip)  # first spoof target
         spoof(gateway_ip, target_ip)  # second spoof router
-        print("\r[+] Packets sent : " + str(send_packets_count), end="")
+        print("\r[+] Packets sent : " + str(send_packets_count)),
+        sys.stdout.flush()
         time.sleep(2)
 except KeyboardInterrupt:
     print("[+] Detect CMD + C ...... Resetting ARP Tables..... Please Wait \n")
